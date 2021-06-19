@@ -28,9 +28,7 @@ export default {
   name: 'MainLayout',
   components: {},
   data() {
-    return {
-      leftDrawerOpen: false
-    }
+    return {}
   },
   created() {
     this.$gitlabApi.defaults.baseURL = localStorage.gitlabApiUrl
