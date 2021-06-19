@@ -1,0 +1,9 @@
+{
+  "name": "GitLab Time Tracker",
+  "description": "GitLab Time Tracker",
+  "version": "0.1",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "index.html"
+  }
+}
