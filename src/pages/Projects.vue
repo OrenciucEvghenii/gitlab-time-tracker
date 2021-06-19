@@ -1,10 +1,36 @@
 <template>
-  <div>Projects</div>
+  <q-page class="flex column">
+    <q-list bordered separator>
+      <q-item v-for="project in projects" :key="project.id" clickable v-ripple>
+        <q-item-section>
+          {{ project.name }}
+        </q-item-section>
+      </q-item>
+    </q-list>
+  </q-page>
 </template>
 
 <script>
 export default {
-  name: 'Projects'
+  name: 'Projects',
+  data() {
+    return {
+      projects: []
+    }
+  },
+  created() {
+    // FIXME: refactor. prototype
+
+    this.$axios.get('https://gitlab.bitingbit.cloud/api/v4/projects?membership=true', {
+      headers: { 'PRIVATE-TOKEN': 'gzeG--UEZBmbLnRpr5Vu' }
+    })
+      .then(({ data }) => {
+        this.projects = data
+      })
+      .catch(error => {
+        console.error(error)
+      })
+  }
 }
 </script>
 
