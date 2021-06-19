@@ -21,9 +21,7 @@ export default {
   created() {
     // FIXME: refactor. prototype
 
-    this.$axios.get('https://gitlab.bitingbit.cloud/api/v4/projects?membership=true', {
-      headers: { 'PRIVATE-TOKEN': 'gzeG--UEZBmbLnRpr5Vu' }
-    })
+    this.$gitlabApi.get('/projects?membership=true')
       .then(({ data }) => {
         this.projects = data
       })
