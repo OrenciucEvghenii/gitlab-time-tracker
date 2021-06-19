@@ -1,7 +1,5 @@
 <template>
   <q-page class="flex column">
-    <div>Settings</div>
-
     <div class="q-gutter-md">
       <q-input v-model="gitlabUrl" label="GitLab URL" filled dense>
         <template v-slot:after>
