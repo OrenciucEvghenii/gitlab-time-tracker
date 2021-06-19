@@ -1,12 +1,17 @@
 <template>
-  <q-page class="flex column">
+  <q-page class="flex no-wrap">
     <q-list bordered separator>
-      <q-item v-for="project in projects" :key="project.id" clickable v-ripple>
+      <q-item v-for="project in projects"
+              :key="project.id"
+              :to="{ name: 'issues', params: { id: project.id }}"
+              clickable
+              v-ripple>
         <q-item-section>
           {{ project.name }}
         </q-item-section>
       </q-item>
     </q-list>
+    <router-view/>
   </q-page>
 </template>
 
