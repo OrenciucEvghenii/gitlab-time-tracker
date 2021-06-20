@@ -41,8 +41,7 @@
                                font-size="26px"
                                :value="100"
                                size="265px"
-                               :thickness="0.05"
-                               color="primary">
+                               :thickness="0.02">
             <div class="q-mx-sm text-center">
               {{ spentHoursSum + 'h' }}
             </div>
