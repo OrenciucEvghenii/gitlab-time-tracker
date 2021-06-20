@@ -150,6 +150,7 @@ export default {
         .then(({ data }) => {
           issue.state = data.state
           issue.loading = false
+          this.loadIssues()
         })
         .catch(error => {
           issue.loading = false
