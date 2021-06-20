@@ -63,7 +63,17 @@
 <script>
 export default {
   name: 'Issues',
-  props: ['projectId'],
+  props: {
+    projectId: {},
+    hideActions: {
+      type: Boolean,
+      default: false
+    },
+    clickable: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       issues: [],
