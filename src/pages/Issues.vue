@@ -63,7 +63,7 @@
 <script>
 export default {
   name: 'Issues',
-  props: ['id'],
+  props: ['projectId'],
   data() {
     return {
       issues: [],
@@ -81,7 +81,7 @@ export default {
   },
   methods: {
     loadIssues() {
-      this.$gitlabApi.get(`/projects/${this.id}/issues`)
+      this.$gitlabApi.get(`/projects/${this.projectId}/issues`)
         .then(({ data }) => {
           this.issues = data.map(issue => {
             return { loading: false, ...issue }
@@ -121,7 +121,7 @@ export default {
     },
     createIssueUrl(issue) {
       // FIXME: bad solution. fix
-      return `/projects/${this.id}/issues/${issue.iid}` // 'iid' isn't a typo
+      return `/projects/${this.projectId}/issues/${issue.iid}` // 'iid' isn't a typo
     },
     isOpened(issue) {
       return issue.state === 'opened'

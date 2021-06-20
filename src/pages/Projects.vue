@@ -3,7 +3,7 @@
     <q-list bordered separator>
       <q-item v-for="project in projects"
               :key="project.id"
-              :to="{ name: 'issues', params: { id: project.id }}"
+              :to="{ name: 'issues', params: { projectId: project.id }}"
               clickable
               v-ripple>
         <q-item-section>
