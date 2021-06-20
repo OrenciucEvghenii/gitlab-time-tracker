@@ -5,8 +5,11 @@
       <q-input v-model="gitlabAccessToken" label="GitLab Access Token" filled dense/>
 
       <div class="text-center">
-        <q-btn @click="saveSettings" color="primary" class="q-mr-md">Save</q-btn>
-        <q-btn type="a" :href="gitlabCreateAccessTokenUrl" target="_blank" label="Create AT" no-caps/>
+        <q-btn @click="saveSettings" label="Save" color="primary" class="q-mr-md"/>
+        <q-btn type="a" :href="gitlabCreateAccessTokenUrl" target="_blank" no-caps>
+          Create Access Token
+          <q-icon name="launch" size="xs" class="q-ml-sm"/>
+        </q-btn>
       </div>
     </div>
   </q-page>
