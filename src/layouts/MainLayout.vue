@@ -7,6 +7,7 @@
           <q-breadcrumbs-el :to="{ name: 'dashboard' }" icon="dashboard"/>
           <q-breadcrumbs-el v-if="isRouteProjects || isRouteIssues" :to="{ name: 'projects' }" label="Projects"/>
           <q-breadcrumbs-el v-if="isRouteIssues" label="Issues"/>
+          <q-breadcrumbs-el v-if="isRouteReport" label="Report"/>
           <q-breadcrumbs-el v-if="isRouteSettings" label="Settings"/>
         </q-breadcrumbs>
 
@@ -41,6 +42,9 @@ export default {
     },
     isRouteIssues() {
       return this.$route.name === 'issues'
+    },
+    isRouteReport() {
+      return this.$route.name === 'report'
     },
     isRouteSettings() {
       return this.$route.name === 'settings'
