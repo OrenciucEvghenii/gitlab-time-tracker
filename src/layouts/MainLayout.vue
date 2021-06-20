@@ -4,15 +4,15 @@
     <q-header>
       <q-toolbar>
         <q-breadcrumbs active-color="white">
-          <q-breadcrumbs-el icon="dashboard" :to="{ name: 'dashboard' }"/>
-          <q-breadcrumbs-el label="Projects" :to="{ name: 'projects' }" v-if="isRouteProjects || isRouteIssues"/>
-          <q-breadcrumbs-el label="Issues" v-if="isRouteIssues"/>
-          <q-breadcrumbs-el label="Settings" v-if="isRouteSettings"/>
+          <q-breadcrumbs-el :to="{ name: 'dashboard' }" icon="dashboard"/>
+          <q-breadcrumbs-el v-if="isRouteProjects || isRouteIssues" :to="{ name: 'projects' }" label="Projects"/>
+          <q-breadcrumbs-el v-if="isRouteIssues" label="Issues"/>
+          <q-breadcrumbs-el v-if="isRouteSettings" label="Settings"/>
         </q-breadcrumbs>
 
         <q-space/>
 
-        <q-btn to="/settings" icon="settings" flat round dense/>
+        <q-btn :to="{name: 'settings'}" icon="settings" flat round dense/>
       </q-toolbar>
     </q-header>
 
