@@ -13,6 +13,21 @@
 
         <q-item-section side>
           <div>
+
+            <q-btn v-if="isOpened(issue)"
+                   @click="changeState(issue, 'close')"
+                   label="Close"
+                   size="sm"
+                   class="q-mr-sm"
+                   outline
+                   no-caps/>
+            <q-btn v-if="!isOpened(issue)"
+                   @click="changeState(issue, 'reopen')"
+                   label="Reopen"
+                   size="sm"
+                   outline
+                   no-caps/>
+
             <q-btn-group class="q-mr-md" flat>
               <q-btn v-for="({duration, buttonLabel}) in durations"
                      :key="duration"
@@ -26,9 +41,9 @@
                                  font-size="11px"
                                  :value="100"
                                  :indeterminate="issue.loading"
-                                 size="60px"
+                                 size="65px"
                                  :thickness="0.05"
-                                 color="primary">
+                                 :color="isOpened(issue) ? 'primary' : 'green' ">
               <div class="q-mx-sm text-center">
                 {{ issue.time_stats.human_total_time_spent || '0h' }}
               </div>
@@ -74,7 +89,7 @@ export default {
     addSpentTime(issue, duration) {
       issue.loading = true
 
-      const url = `/projects/${this.$route.params.id}/issues/${issue.iid}/add_spent_time?duration=${duration}`
+      const url = this.createIssueUrl(issue) + `/add_spent_time?duration=${duration}`
       this.$gitlabApi.post(url)
         .then(({ data }) => {
           issue.time_stats.human_total_time_spent = data.human_total_time_spent
@@ -84,6 +99,27 @@ export default {
           issue.loading = false
           console.error(error)
         })
+    },
+    changeState(issue, state) {
+      issue.loading = true
+
+      const url = this.createIssueUrl(issue) + `?state_event=${state}`
+      this.$gitlabApi.put(url)
+        .then(({ data }) => {
+          issue.state = data.state
+          issue.loading = false
+        })
+        .catch(error => {
+          issue.loading = false
+          console.error(error)
+        })
+    },
+    createIssueUrl(issue) {
+      // FIXME: bad solution. fix
+      return `/projects/${this.$route.params.id}/issues/${issue.iid}` // 'iid' isn't a typo
+    },
+    isOpened(issue) {
+      return issue.state === 'opened'
     }
   }
 }
