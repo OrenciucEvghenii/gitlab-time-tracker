@@ -6,7 +6,7 @@ const routes = [
       { path: '', redirect: 'dashboard' },
       { path: 'dashboard', name: 'dashboard', component: () => import('pages/Dashboard') },
       { path: 'dashboard/projects', name: 'projects', component: () => import('pages/Projects') },
-      { path: 'dashboard/projects/:id/issues', name: 'issues', component: () => import('pages/Issues') },
+      { path: 'dashboard/projects/:id/issues', name: 'issues', props: true, component: () => import('pages/Issues') },
       { path: 'dashboard/report', name: 'report', component: () => import('pages/Report') },
       { path: 'settings', name: 'settings', component: () => import('pages/Settings') }
     ]
