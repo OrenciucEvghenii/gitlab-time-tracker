@@ -31,12 +31,24 @@ export default {
   data() {
     return {}
   },
+  computed: {
+    // FIXME: temporary solution. refactor! need better strategy for generating breadcrumbs
+    isRouteDashboard() {
+      return this.$route.name === 'dashboard'
+    },
+    isRouteProjects() {
+      return this.$route.name === 'projects'
+    },
+    isRouteIssues() {
+      return this.$route.name === 'issues'
+    },
+    isRouteSettings() {
+      return this.$route.name === 'settings'
+    }
+  },
   created() {
     this.$gitlabApi.defaults.baseURL = localStorage.gitlabApiUrl
     this.$gitlabApi.defaults.headers['PRIVATE-TOKEN'] = localStorage.gitlabAccessToken
-  },
-  updated() {
-    console.log(this.$route.path.split('/'))
   }
 }
 </script>
