@@ -3,10 +3,11 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index') },
-      { path: 'settings', name: 'settings', component: () => import('pages/Settings') },
-      { path: 'projects', name: 'projects', component: () => import('pages/Projects') },
-      { path: 'projects/:id/issues', name: 'issues', component: () => import('pages/Issues') }
+      { path: '', redirect: 'dashboard' },
+      { path: 'dashboard', name: 'dashboard', component: () => import('pages/Dashboard') },
+      { path: 'dashboard/projects', name: 'projects', component: () => import('pages/Projects') },
+      { path: 'dashboard/projects/:id/issues', name: 'issues', component: () => import('pages/Issues') },
+      { path: 'settings', name: 'settings', component: () => import('pages/Settings') }
     ]
   },
 

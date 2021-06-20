@@ -1,11 +1,11 @@
 <template>
   <q-page class="flex">
-    <div>Index</div>
+    <router-link :to="{name: 'projects'}">Projects</router-link>
   </q-page>
 </template>
 
 <script>
 export default {
-  name: 'PageIndex'
+  name: 'Dashboard'
 }
 </script>
