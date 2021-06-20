@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex justify-center content-center q-gutter-lg">
+  <q-page class="flex justify-center content-center q-gutter-lg dashboard">
     <q-card @click="$router.push({ name: 'projects' })" class="cursor-pointer" flat bordered>
       <q-card-section>
         <div class="text-h6">Projects</div>
@@ -18,3 +18,9 @@ export default {
   name: 'Dashboard'
 }
 </script>
+
+<style lang="scss" scoped>
+.dashboard {
+  min-height: 500px;
+}
+</style>
