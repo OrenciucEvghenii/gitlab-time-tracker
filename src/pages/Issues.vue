@@ -14,7 +14,7 @@
 
           <q-linear-progress v-if="issuesLoading" indeterminate/>
 
-          <q-item v-for="issue in issues" :key="issue.id" :clickable="clickable">
+          <q-item v-for="issue in issues" :key="issue.id" :clickable="clickable" @click="$emit('issue-clicked', issue)">
             <q-item-section>
               <div>
                 <q-btn type="a" :href="issue.web_url" target="_blank" icon="launch" size="sm" flat dense/>
@@ -22,24 +22,26 @@
               </div>
             </q-item-section>
 
-            <q-item-section v-if="!hideActions" side>
+            <q-item-section side>
               <div>
-                <q-btn @click="changeState(issue, (isOpened(issue) ? 'close' : 'reopen'))"
-                       :label="isOpened(issue) ? 'Close' : 'Reopen'"
-                       size="sm"
-                       class="q-mr-sm"
-                       outline
-                       no-caps/>
-
-                <q-btn-group class="q-mr-md" flat>
-                  <q-btn v-for="({duration, buttonLabel}) in spentTimeDurations"
-                         :key="duration"
-                         @click="addSpentTime(issue, duration)"
-                         :disable="issue.loading"
-                         :label="buttonLabel"
-                         dense
+                <span v-if="!hideActions">
+                  <q-btn @click="changeState(issue, (isOpened(issue) ? 'close' : 'reopen'))"
+                         :label="isOpened(issue) ? 'Close' : 'Reopen'"
+                         size="sm"
+                         class="q-mr-sm"
+                         outline
                          no-caps/>
-                </q-btn-group>
+
+                  <q-btn-group class="q-mr-md" flat>
+                    <q-btn v-for="({duration, buttonLabel}) in spentTimeDurations"
+                           :key="duration"
+                           @click="addSpentTime(issue, duration)"
+                           :disable="issue.loading"
+                           :label="buttonLabel"
+                           dense
+                           no-caps/>
+                  </q-btn-group>
+                </span>
 
                 <q-circular-progress show-value
                                      font-size="11px"
@@ -116,6 +118,7 @@ export default {
             return { loading: false, ...issue }
           })
           this.issuesLoading = false
+          this.$emit('issues-loaded', this.issues)
         })
         .catch(error => {
           console.error(error)
