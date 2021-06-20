@@ -19,26 +19,15 @@ export default {
       issues: []
     }
   },
-  watch: {
-    $route() {
-      // this.loadIssues()
-    }
-  },
   created() {
-    this.loadIssues()
-  },
-  methods: {
-    loadIssues() {
-      // FIXME: refactor. prototype
-
-      this.$gitlabApi.get(`/projects/${this.$route.params.id}/issues`)
-        .then(({ data }) => {
-          this.issues = data
-        })
-        .catch(error => {
-          console.error(error)
-        })
-    }
+    // FIXME: temporary solution
+    this.$gitlabApi.get(`/projects/${this.$route.params.id}/issues`)
+      .then(({ data }) => {
+        this.issues = data
+      })
+      .catch(error => {
+        console.error(error)
+      })
   }
 }
 </script>

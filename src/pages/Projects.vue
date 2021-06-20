@@ -1,5 +1,5 @@
 <template>
-  <q-page class="flex no-wrap">
+  <q-page class="flex column">
     <q-list bordered separator>
       <q-item v-for="project in projects"
               :key="project.id"
@@ -24,7 +24,6 @@ export default {
   },
   created() {
     // FIXME: refactor. prototype
-
     this.$gitlabApi.get('/projects?membership=true')
       .then(({ data }) => {
         this.projects = data
