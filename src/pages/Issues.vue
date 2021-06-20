@@ -2,19 +2,28 @@
   <q-page class="flex">
     <div class="col-grow">
       <q-scroll-area style="height: 100%">
-        <q-list v-if="issues.length" bordered separator>
-          <q-item v-for="issue in issues" :key="issue.id">
+        <q-list bordered separator>
+          <q-item>
+            <q-item-section>No. of Issues: {{ issues.length }}</q-item-section>
+            <q-btn-toggle v-model="issueState"
+                          toggle-color="primary"
+                          :options="issueStateOptions"
+                          @input="loadIssues"
+                          flat/>
+          </q-item>
+          <q-linear-progress v-if="issuesLoading" indeterminate/>
+          <q-item v-for="issue in issues" :key="issue.id" :clickable="clickable">
 
             <q-item-section>
               <div>
-                <q-btn type="a" :href="issue.web_url" target="_blank" icon="launch" size="sm" flat dense/>
+                <q-btn type="a" :href="issue.web_url" target="_blank" icon="launch" size="sm" flat
+                       dense/>
                 {{ issue.title }}
               </div>
             </q-item-section>
 
-            <q-item-section side>
+            <q-item-section v-if="!hideActions" side>
               <div>
-
                 <q-btn v-if="isOpened(issue)"
                        @click="changeState(issue, 'close')"
                        label="Close"
@@ -77,12 +86,19 @@ export default {
   data() {
     return {
       issues: [],
+      issuesLoading: false,
       durations: [
         { duration: '1d', buttonLabel: '+1d' },
         { duration: '4h', buttonLabel: '+4h' },
         { duration: '2h', buttonLabel: '+2h' },
         { duration: '1h', buttonLabel: '+1h' },
         { duration: '30m', buttonLabel: '+30m' }
+      ],
+      issueState: null,
+      issueStateOptions: [
+        { label: 'All', value: null },
+        { label: 'Opened', value: '&state=opened' },
+        { label: 'Closed', value: '&state=closed' }
       ]
     }
   },
@@ -91,14 +107,25 @@ export default {
   },
   methods: {
     loadIssues() {
-      this.$gitlabApi.get(`/projects/${this.projectId}/issues`)
+      // FIXME: verry ineffective method. Optimize!
+      // FIXME: make pagination dynamically [https://docs.gitlab.com/ee/api/README.html#pagination]
+
+      this.issuesLoading = true
+
+      const url = (this.projectId)
+        ? `/projects/${this.projectId}/issues?per_page=100${this.issueState || ''}`
+        : `/issues?scope=assigned_to_me&per_page=100${this.issueState || ''}`
+
+      this.$gitlabApi.get(url)
         .then(({ data }) => {
           this.issues = data.map(issue => {
             return { loading: false, ...issue }
           })
+          this.issuesLoading = false
         })
         .catch(error => {
           console.error(error)
+          this.issuesLoading = false
         })
     },
     addSpentTime(issue, duration) {
