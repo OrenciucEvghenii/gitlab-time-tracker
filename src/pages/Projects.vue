@@ -11,7 +11,6 @@
         </q-item-section>
       </q-item>
     </q-list>
-    <router-view/>
   </q-page>
 </template>
 
