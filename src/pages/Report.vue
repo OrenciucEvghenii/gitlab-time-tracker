@@ -74,7 +74,6 @@ export default {
       this.spentHoursSum = moment.duration(totalTimeSpent, 'seconds').asHours()
     }
   }
-
 }
 </script>
 

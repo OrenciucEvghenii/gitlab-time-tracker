@@ -61,7 +61,6 @@
         </q-list>
       </q-scroll-area>
     </div>
-
   </q-page>
 </template>
 
