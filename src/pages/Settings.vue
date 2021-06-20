@@ -10,15 +10,18 @@
           Create Access Token
           <q-icon name="launch" size="xs" class="q-ml-sm"/>
         </q-btn>
+      <!--FIXME: temporary button. will be removed-->
+        <q-btn @click="gitlabApiUrl='https://gitlab.bitingbit.cloud/api/v4'"
+               class="q-ml-md"
+               no-caps>
+          Set BB GitLab API URL
+        </q-btn>
       </div>
     </div>
   </q-page>
 </template>
 
 <script>
-
-// gzeG--UEZBmbLnRpr5Vu
-
 export default {
   name: 'Settings',
   data() {
