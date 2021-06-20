@@ -6,25 +6,25 @@
       <template v-slot:before>
 
         <div class="flex column">
-          <q-input filled v-model="date" dense disable>
-            <template v-slot:append>
-              <q-icon name="event" class="cursor-pointer">
-                <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">
-                  <q-date v-model="date" range :events="events">
-                    <div class="row items-center justify-end">
-                      <q-btn v-close-popup label="Close" color="primary" flat/>
-                    </div>
-                  </q-date>
-                </q-popup-proxy>
-              </q-icon>
-            </template>
-          </q-input>
-          <q-btn-group spread flat disabled>
-            <!--FIXME: fix button height-->
-            <q-btn label="Week" dense/>
-            <q-btn label="Two Weeks" dense/>
-            <q-btn label="Month" dense/>
-          </q-btn-group>
+<!--          <q-input filled v-model="date" dense disable>-->
+<!--            <template v-slot:append>-->
+<!--              <q-icon name="event" class="cursor-pointer">-->
+<!--                <q-popup-proxy ref="qDateProxy" transition-show="scale" transition-hide="scale">-->
+<!--                  <q-date v-model="date" range :events="events">-->
+<!--                    <div class="row items-center justify-end">-->
+<!--                      <q-btn v-close-popup label="Close" color="primary" flat/>-->
+<!--                    </div>-->
+<!--                  </q-date>-->
+<!--                </q-popup-proxy>-->
+<!--              </q-icon>-->
+<!--            </template>-->
+<!--          </q-input>-->
+<!--          <q-btn-group spread flat disabled>-->
+<!--            &lt;!&ndash;FIXME: fix button height&ndash;&gt;-->
+<!--            <q-btn label="Week" dense/>-->
+<!--            <q-btn label="Two Weeks" dense/>-->
+<!--            <q-btn label="Month" dense/>-->
+<!--          </q-btn-group>-->
 
           <!--
             FIXME: q-input and q-btn-group are causing additional scroll area for
