@@ -51,7 +51,7 @@
                                      :thickness="0.05"
                                      :color="isOpened(issue) ? 'primary' : 'green' ">
                   <div class="q-mx-sm text-center">
-                    {{ issue.time_stats.human_total_time_spent || '0h' }}
+                    {{ secondsToHours(issue.time_stats.total_time_spent) + 'h' }}
                   </div>
                 </q-circular-progress>
               </div>
@@ -66,6 +66,8 @@
 </template>
 
 <script>
+import moment from 'moment'
+
 export default {
   name: 'Issues',
   props: {
@@ -84,7 +86,7 @@ export default {
       issues: [],
       issuesLoading: false,
       spentTimeDurations: [
-        { duration: '1d', buttonLabel: '+1d' },
+        { duration: '8h', buttonLabel: '+8h' },
         { duration: '4h', buttonLabel: '+4h' },
         { duration: '2h', buttonLabel: '+2h' },
         { duration: '1h', buttonLabel: '+1h' },
@@ -131,7 +133,7 @@ export default {
       const url = this.createIssueUrl(issue) + `/add_spent_time?duration=${duration}`
       this.$gitlabApi.post(url)
         .then(({ data }) => {
-          issue.time_stats.human_total_time_spent = data.human_total_time_spent
+          issue.time_stats.total_time_spent = data.total_time_spent
           issue.loading = false
         })
         .catch(error => {
@@ -160,6 +162,9 @@ export default {
     },
     isOpened(issue) {
       return issue.state === 'opened'
+    },
+    secondsToHours(seconds) {
+      return moment.duration(seconds, 'seconds').asHours()
     }
   }
 }
