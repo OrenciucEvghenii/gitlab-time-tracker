@@ -1,58 +1,62 @@
 <template>
-  <q-page class="flex column">
-    <div>No. of Issues: {{ issues.length }}</div>
-    <q-list v-if="issues.length" bordered separator>
-      <q-item v-for="issue in issues" :key="issue.id">
+  <q-page class="flex">
+    <div class="col-grow">
+      <q-scroll-area style="height: 100%">
+        <q-list v-if="issues.length" bordered separator>
+          <q-item v-for="issue in issues" :key="issue.id">
 
-        <q-item-section>
-          <div>
-            <q-btn type="a" :href="issue.web_url" target="_blank" icon="launch" size="sm" flat dense/>
-            {{ issue.title }}
-          </div>
-        </q-item-section>
-
-        <q-item-section side>
-          <div>
-
-            <q-btn v-if="isOpened(issue)"
-                   @click="changeState(issue, 'close')"
-                   label="Close"
-                   size="sm"
-                   class="q-mr-sm"
-                   outline
-                   no-caps/>
-            <q-btn v-if="!isOpened(issue)"
-                   @click="changeState(issue, 'reopen')"
-                   label="Reopen"
-                   size="sm"
-                   outline
-                   no-caps/>
-
-            <q-btn-group class="q-mr-md" flat>
-              <q-btn v-for="({duration, buttonLabel}) in durations"
-                     :key="duration"
-                     @click="addSpentTime(issue, duration)"
-                     :disable="issue.loading"
-                     :label="buttonLabel"
-                     no-caps/>
-            </q-btn-group>
-
-            <q-circular-progress show-value
-                                 font-size="11px"
-                                 :value="100"
-                                 :indeterminate="issue.loading"
-                                 size="65px"
-                                 :thickness="0.05"
-                                 :color="isOpened(issue) ? 'primary' : 'green' ">
-              <div class="q-mx-sm text-center">
-                {{ issue.time_stats.human_total_time_spent || '0h' }}
+            <q-item-section>
+              <div>
+                <q-btn type="a" :href="issue.web_url" target="_blank" icon="launch" size="sm" flat dense/>
+                {{ issue.title }}
               </div>
-            </q-circular-progress>
-          </div>
-        </q-item-section>
+            </q-item-section>
 
-      </q-item>
-    </q-list>
+            <q-item-section side>
+              <div>
+
+                <q-btn v-if="isOpened(issue)"
+                       @click="changeState(issue, 'close')"
+                       label="Close"
+                       size="sm"
+                       class="q-mr-sm"
+                       outline
+                       no-caps/>
+                <q-btn v-if="!isOpened(issue)"
+                       @click="changeState(issue, 'reopen')"
+                       label="Reopen"
+                       size="sm"
+                       outline
+                       no-caps/>
+
+                <q-btn-group class="q-mr-md" flat>
+                  <q-btn v-for="({duration, buttonLabel}) in durations"
+                         :key="duration"
+                         @click="addSpentTime(issue, duration)"
+                         :disable="issue.loading"
+                         :label="buttonLabel"
+                         no-caps/>
+                </q-btn-group>
+
+                <q-circular-progress show-value
+                                     font-size="11px"
+                                     :value="100"
+                                     :indeterminate="issue.loading"
+                                     size="65px"
+                                     :thickness="0.05"
+                                     :color="isOpened(issue) ? 'primary' : 'green' ">
+                  <div class="q-mx-sm text-center">
+                    {{ issue.time_stats.human_total_time_spent || '0h' }}
+                  </div>
+                </q-circular-progress>
+              </div>
+            </q-item-section>
+
+          </q-item>
+        </q-list>
+      </q-scroll-area>
+    </div>
+
   </q-page>
 </template>
 
