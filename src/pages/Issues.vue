@@ -6,44 +6,38 @@
           <q-item>
             <q-item-section>No. of Issues: {{ issues.length }}</q-item-section>
             <q-btn-toggle v-model="issueState"
-                          toggle-color="primary"
                           :options="issueStateOptions"
                           @input="loadIssues"
+                          toggle-color="primary"
                           flat/>
           </q-item>
-          <q-linear-progress v-if="issuesLoading" indeterminate/>
-          <q-item v-for="issue in issues" :key="issue.id" :clickable="clickable">
 
+          <q-linear-progress v-if="issuesLoading" indeterminate/>
+
+          <q-item v-for="issue in issues" :key="issue.id" :clickable="clickable">
             <q-item-section>
               <div>
-                <q-btn type="a" :href="issue.web_url" target="_blank" icon="launch" size="sm" flat
-                       dense/>
+                <q-btn type="a" :href="issue.web_url" target="_blank" icon="launch" size="sm" flat dense/>
                 {{ issue.title }}
               </div>
             </q-item-section>
 
             <q-item-section v-if="!hideActions" side>
               <div>
-                <q-btn v-if="isOpened(issue)"
-                       @click="changeState(issue, 'close')"
-                       label="Close"
+                <q-btn @click="changeState(issue, (isOpened(issue) ? 'close' : 'reopen'))"
+                       :label="isOpened(issue) ? 'Close' : 'Reopen'"
                        size="sm"
                        class="q-mr-sm"
                        outline
                        no-caps/>
-                <q-btn v-if="!isOpened(issue)"
-                       @click="changeState(issue, 'reopen')"
-                       label="Reopen"
-                       size="sm"
-                       outline
-                       no-caps/>
 
                 <q-btn-group class="q-mr-md" flat>
-                  <q-btn v-for="({duration, buttonLabel}) in durations"
+                  <q-btn v-for="({duration, buttonLabel}) in spentTimeDurations"
                          :key="duration"
                          @click="addSpentTime(issue, duration)"
                          :disable="issue.loading"
                          :label="buttonLabel"
+                         dense
                          no-caps/>
                 </q-btn-group>
 
@@ -87,7 +81,7 @@ export default {
     return {
       issues: [],
       issuesLoading: false,
-      durations: [
+      spentTimeDurations: [
         { duration: '1d', buttonLabel: '+1d' },
         { duration: '4h', buttonLabel: '+4h' },
         { duration: '2h', buttonLabel: '+2h' },
