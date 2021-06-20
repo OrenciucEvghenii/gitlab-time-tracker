@@ -10,30 +10,14 @@
 
         <q-item-section side>
           <div>
-            <q-btn @click="addSpentTime(issue, '4h')"
-                   :disable="issue.loading"
-                   label="+4h"
-                   no-caps
-                   flat
-                   rounded/>
-            <q-btn @click="addSpentTime(issue, '2h')"
-                   :disable="issue.loading"
-                   label="+2h"
-                   no-caps
-                   flat
-                   rounded/>
-            <q-btn @click="addSpentTime(issue, '1h')"
-                   :disable="issue.loading"
-                   label="+1h"
-                   no-caps
-                   flat
-                   rounded/>
-            <q-btn @click="addSpentTime(issue, '30m')"
-                   :disable="issue.loading"
-                   label="+30m"
-                   no-caps
-                   flat
-                   rounded/>
+            <q-btn-group class="q-mr-md" flat>
+              <q-btn v-for="({duration, buttonLabel}) in durations"
+                     :key="duration"
+                     @click="addSpentTime(issue, duration)"
+                     :disable="issue.loading"
+                     :label="buttonLabel"
+                     no-caps/>
+            </q-btn-group>
 
             <q-circular-progress show-value
                                  font-size="11px"
@@ -59,7 +43,14 @@ export default {
   name: 'Issues',
   data() {
     return {
-      issues: []
+      issues: [],
+      durations: [
+        { duration: '1d', buttonLabel: '+1d' },
+        { duration: '4h', buttonLabel: '+4h' },
+        { duration: '2h', buttonLabel: '+2h' },
+        { duration: '1h', buttonLabel: '+1h' },
+        { duration: '30m', buttonLabel: '+30m' }
+      ]
     }
   },
   created() {
