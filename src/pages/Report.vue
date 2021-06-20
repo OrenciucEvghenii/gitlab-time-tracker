@@ -30,25 +30,21 @@
             FIXME: q-input and q-btn-group are causing additional scroll area for
                    whole page. Only Issues-list should be scrollable
           -->
-          <Issues @issues-loaded="updateReport"
-                  @issue-clicked="showIssueStats"
-                  hide-actions
-                  clickable/>
+          <Issues @issues-loaded="updateReport" hide-actions/>
 
         </div>
       </template>
 
       <template v-slot:after>
         <div class="flex justify-center content-center" style="height: 100%">
-          <q-circular-progress v-if="selectedIssue"
-                               show-value
+          <q-circular-progress show-value
                                font-size="26px"
                                :value="100"
                                size="265px"
                                :thickness="0.05"
-                               :color="selectedIssue.state === 'opened' ? 'primary' : 'green' ">
+                               color="primary">
             <div class="q-mx-sm text-center">
-              {{ selectedIssue.time_stats.human_total_time_spent || '0h' }}
+              {{ spentHoursSum + 'h' }}
             </div>
           </q-circular-progress>
         </div>
@@ -59,23 +55,23 @@
 
 <script>
 import Issues from 'pages/Issues'
+import moment from 'moment'
+
 export default {
   name: 'Report',
   components: { Issues },
   data() {
     return {
       splitterModel: 40,
-      selectedIssue: null,
+      spentHoursSum: 0,
       date: '2019/03/01',
       events: ['2019/02/01', '2019/02/05', '2019/02/06']
     }
   },
   methods: {
     updateReport(issues) {
-      console.log(issues.length)
-    },
-    showIssueStats(issue) {
-      this.selectedIssue = issue
+      const totalTimeSpent = issues.map(issue => issue.time_stats.total_time_spent).reduce((accumulator, current) => accumulator + current)
+      this.spentHoursSum = moment.duration(totalTimeSpent, 'seconds').asHours()
     }
   }
 
