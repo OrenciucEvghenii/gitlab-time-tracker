@@ -2,10 +2,13 @@
   <q-page class="flex column">
     <div>No. of Issues: {{ issues.length }}</div>
     <q-list v-if="issues.length" bordered separator>
-      <q-item v-for="(issue) in issues" :key="issue.id">
+      <q-item v-for="issue in issues" :key="issue.id">
 
         <q-item-section>
-          {{ issue.title }}
+          <div>
+            <q-btn type="a" :href="issue.web_url" target="_blank" icon="launch" size="sm" flat dense/>
+            {{ issue.title }}
+          </div>
         </q-item-section>
 
         <q-item-section side>
