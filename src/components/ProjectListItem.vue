@@ -1,5 +1,5 @@
 <template>
-  <q-item>
+  <q-item dense>
     <q-item-section>
       <div>
         <q-btn type="a" :href="project.web_url" target="_blank" icon="launch" size="sm" flat dense/>
@@ -16,7 +16,8 @@
            label="Issues"
            icon-right="navigate_next"
            no-caps
-           flat/>
+           flat
+           dense/>
   </q-item>
 </template>
 
