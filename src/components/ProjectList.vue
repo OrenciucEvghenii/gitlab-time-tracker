@@ -14,6 +14,9 @@
                          :is-pinned="isProjectPinned(project.id)"
                          @pinClicked="toggleProjectPined(project.id)"/>
       </q-list>
+      <q-item v-if="!sortedProjects.length && !projectsLoading">
+        No {{ pinnedOnly ? 'pinned ' : '' }} projects found
+      </q-item>
     </q-scroll-area>
   </div>
 </template>
