@@ -12,7 +12,11 @@ If you found a bug, or you have an idea how to improve this tool, create an issu
 4. Turn on developer mode
 5. Click 'Load Unpacked Extension'
 6. Navigate to project folder and choose `dist/spa` folder
-7. Click the 'puzzle' icon (top-right) and pin the **Session Cleaner** to the Chrome Extensions bar
+7. Click the 'puzzle' icon (top-right) and pin the **GitLab Time Tracker** to the Chrome Extensions bar
+
+## How to use
+First you need to set GitLab API link and Private Access Token on 'Settings' page. Click on save and
+go to Dashboard. Here you can go to 'Projects' or to 'Report' page.
 
 ## Development
 **GitLab Time Tracker** is a VueJS SPA, created with Quasar CLI and supports development with a Webpack DevServer(Hot Module Replacement).
