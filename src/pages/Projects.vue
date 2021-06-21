@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex">
-    <ProjectList>
+    <ProjectList bordered>
       <template #header="{ count }">
         <q-item>
           <q-item-section>

@@ -7,7 +7,7 @@
 
       <q-linear-progress v-if="projectsLoading" size="xs" indeterminate/>
 
-      <q-list bordered separator>
+      <q-list :bordered="bordered" separator>
         <ProjectListItem v-for="project in sortedProjects"
                          :key="project.id"
                          :project="project"
@@ -25,6 +25,9 @@ import ProjectListItem from 'components/ProjectListItem'
 export default {
   name: 'ProjectList',
   props: {
+    bordered: {
+      type: Boolean
+    },
     pinnedOnly: {
       type: Boolean
     }
