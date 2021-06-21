@@ -1,17 +1,17 @@
 <template>
   <q-page class="flex row justify-center content-center q-gutter-lg dashboard">
 
-    <q-card class="col-4 flex column dashboard-card" flat bordered>
+    <q-card class="col-5 flex column dashboard-card" flat bordered>
       <q-card-section @click="$router.push({ name: 'projects' })" class="cursor-pointer">
         <div class="text-h6">Projects</div>
       </q-card-section>
 
       <q-separator inset />
 
-      <ProjectList class="q-pa-md" pinned-only/>
+      <ProjectList class="q-pa-sm" pinned-only/>
     </q-card>
 
-    <q-card class="col-4 dashboard-card" flat bordered>
+    <q-card class="col-5 dashboard-card" flat bordered>
       <q-card-section @click="$router.push({ name: 'report' })" class="cursor-pointer ">
         <div class="text-h6">Report</div>
       </q-card-section>
