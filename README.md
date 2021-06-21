@@ -2,25 +2,25 @@
 
 GitLab Time Tracker
 
-## Install the dependencies
-```bash
-npm install
-```
+## Issues
+If you found a bug, or you have an idea how to improve this tool, create an issue in GitLab.
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
-quasar dev
-```
+## Installation
+1. Clone project
+2. Run `npm install && npm run build` from project root directory
+3. Go to 'Extentions' page in your Chrome, Chromium, Brave or other Chromium-based browser
+4. Turn on developer mode
+5. Click 'Load Unpacked Extension'
+6. Navigate to project folder and choose `dist/spa` folder
+7. Click the 'puzzle' icon (top-right) and pin the **Session Cleaner** to the Chrome Extensions bar
 
-### Lint the files
-```bash
-npm run lint
-```
+## Development
+**GitLab Time Tracker** is a VueJS SPA, created with Quasar CLI and supports development with a Webpack DevServer(Hot Module Replacement).
+To start DevServer run `npm run serve` from project root folder.
 
-### Build the app for production
-```bash
-quasar build
-```
+**Attention**: Chrome API doens't work if using webpack DevServer.
+If you want to test some Chrome API function, you have to install the extension to your browswer
+and click 'refresh' button on extension card.
 
-### Customize the configuration
-See [Configuring quasar.conf.js](https://v1.quasar.dev/quasar-cli/quasar-conf-js).
+## Dev Docs
+https://developer.chrome.com/docs/extensions/
