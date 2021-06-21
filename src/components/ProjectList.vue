@@ -24,7 +24,11 @@ import ProjectListItem from 'components/ProjectListItem'
 
 export default {
   name: 'ProjectList',
-  props: ['pinnedOnly'],
+  props: {
+    pinnedOnly: {
+      type: Boolean
+    }
+  },
   components: { ProjectListItem },
   data() {
     return {
@@ -49,12 +53,15 @@ export default {
     }
   },
   created() {
-    // FIXME: refactor. prototype
     this.projectsLoading = true
     this.$gitlabApi.get('/projects?membership=true')
       .then(({ data }) => {
         if (localStorage.pinedProjectIds) {
           this.pinedProjectIds = localStorage.pinedProjectIds.split(',').map(id => parseInt(id))
+        }
+
+        if (this.pinnedOnly) { // FIXME: verry inefficient. especially if user has many projects
+          data = data.filter(project => this.isProjectPinned(project.id))
         }
 
         this.projects = data
