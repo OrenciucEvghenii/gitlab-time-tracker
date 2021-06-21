@@ -9,14 +9,19 @@
         <q-linear-progress v-if="projectsLoading" indeterminate/>
 
         <q-list bordered separator>
-          <q-item v-for="project in projects"
-                  :key="project.id"
-                  :to="{ name: 'issues', params: { projectId: project.id }}"
-                  clickable
-                  v-ripple>
+          <q-item v-for="project in projects" :key="project.id">
             <q-item-section>
-              {{ project.name }}
+              <div>
+                <q-btn type="a" :href="project.web_url" target="_blank" icon="launch" size="sm" flat dense/>
+                {{ project.name }} ({{project.id}})
+              </div>
             </q-item-section>
+<!--            <q-btn icon="push_pin" @click="toggleProjectPined(project.id)" :color="isProjectPined(project.id) ? 'primary' : 'black'" flat dense/>-->
+            <q-btn :to="{ name: 'issues', params: { projectId: project.id }}"
+                   label="Issues"
+                   icon-right="navigate_next"
+                   no-caps
+                   flat/>
           </q-item>
         </q-list>
       </q-scroll-area>
@@ -30,7 +35,23 @@ export default {
   data() {
     return {
       projects: [],
+      pinedProjectIds: [],
       projectsLoading: false
+    }
+  },
+  computed: {
+    sortedProjects() {
+      const sortedProjects = [...this.projects]
+
+      return sortedProjects.sort((first, second) => {
+        if (this.isProjectPined(first.id) && !this.isProjectPined(second)) {
+          return -1
+        } else if (!this.isProjectPined(first.id) && this.isProjectPined(second)) {
+          return 1
+        } else {
+          return 0
+        }
+      })
     }
   },
   created() {
@@ -38,6 +59,10 @@ export default {
     this.projectsLoading = true
     this.$gitlabApi.get('/projects?membership=true')
       .then(({ data }) => {
+        // if (localStorage.pinedProjectIds) {
+        //   this.pinedProjectIds = [...localStorage.pinedProjectIds].map(id => parseInt(id))
+        // }
+
         this.projects = data
         this.projectsLoading = false
       })
@@ -45,6 +70,21 @@ export default {
         console.error(error)
         this.projectsLoading = false
       })
+  },
+  methods: {
+    toggleProjectPined(projectId) {
+      if (this.isProjectPined(projectId)) {
+        const pinedProjectIndex = this.pinedProjectIds.indexOf(projectId)
+        this.pinedProjectIds.splice(pinedProjectIndex, 1)
+      } else {
+        this.pinedProjectIds.push(projectId)
+      }
+
+      localStorage.pinedProjectIds = this.pinedProjectIds
+    },
+    isProjectPined(projectId) {
+      return this.pinedProjectIds.includes(projectId)
+    }
   }
 }
 </script>
