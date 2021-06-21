@@ -9,25 +9,12 @@
         <q-linear-progress v-if="projectsLoading" indeterminate/>
 
         <q-list bordered separator>
-          <q-item v-for="project in sortedProjects" :key="project.id">
-            <q-item-section>
-              <div>
-                <q-btn type="a" :href="project.web_url" target="_blank" icon="launch" size="sm" flat dense/>
-                {{ project.name }}
-              </div>
-            </q-item-section>
-            <q-btn @click="toggleProjectPined(project.id)"
-                   :color="isProjectPined(project.id) ? 'primary' : 'black'"
-                   icon="push_pin"
-                   size="sm"
-                   flat
-                   dense/>
-            <q-btn :to="{ name: 'issues', params: { projectId: project.id }}"
-                   label="Issues"
-                   icon-right="navigate_next"
-                   no-caps
-                   flat/>
-          </q-item>
+          <ProjectListItem v-for="project in sortedProjects"
+                           :key="project.id"
+                           :project="project"
+                           :is-pinned="isProjectPinned(project.id)"
+                           @pinClicked="toggleProjectPined(project.id)"
+          />
         </q-list>
       </q-scroll-area>
     </div>
@@ -35,8 +22,10 @@
 </template>
 
 <script>
+import ProjectListItem from 'components/ProjectListItem'
 export default {
   name: 'Projects',
+  components: { ProjectListItem },
   data() {
     return {
       projects: [],
@@ -49,9 +38,9 @@ export default {
       const sortedProjects = [...this.projects]
 
       return sortedProjects.sort((first, second) => {
-        if (this.isProjectPined(first.id) && !this.isProjectPined(second.id)) {
+        if (this.isProjectPinned(first.id) && !this.isProjectPinned(second.id)) {
           return -1
-        } else if (!this.isProjectPined(first.id) && this.isProjectPined(second.id)) {
+        } else if (!this.isProjectPinned(first.id) && this.isProjectPinned(second.id)) {
           return 1
         } else {
           return 0
@@ -78,7 +67,7 @@ export default {
   },
   methods: {
     toggleProjectPined(projectId) {
-      if (this.isProjectPined(projectId)) {
+      if (this.isProjectPinned(projectId)) {
         const pinedProjectIndex = this.pinedProjectIds.indexOf(projectId)
         this.pinedProjectIds.splice(pinedProjectIndex, 1)
       } else {
@@ -87,7 +76,7 @@ export default {
 
       localStorage.pinedProjectIds = this.pinedProjectIds
     },
-    isProjectPined(projectId) {
+    isProjectPinned(projectId) {
       return this.pinedProjectIds.includes(projectId)
     }
   }
