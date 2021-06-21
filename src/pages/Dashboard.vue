@@ -6,7 +6,9 @@
         <div class="text-h6">Projects</div>
       </q-card-section>
 
-      <ProjectList pinned-only/>
+      <q-separator inset />
+
+      <ProjectList class="q-pa-md" pinned-only/>
     </q-card>
 
     <q-card class="col-4 dashboard-card" flat bordered>
