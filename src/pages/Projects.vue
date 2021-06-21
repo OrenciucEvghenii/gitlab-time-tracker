@@ -13,10 +13,15 @@
             <q-item-section>
               <div>
                 <q-btn type="a" :href="project.web_url" target="_blank" icon="launch" size="sm" flat dense/>
-                {{ project.name }} ({{project.id}})
+                {{ project.name }}
               </div>
             </q-item-section>
-            <q-btn icon="push_pin" @click="toggleProjectPined(project.id)" :color="isProjectPined(project.id) ? 'primary' : 'black'" size="sm" flat dense/>
+            <q-btn @click="toggleProjectPined(project.id)"
+                   :color="isProjectPined(project.id) ? 'primary' : 'black'"
+                   icon="push_pin"
+                   size="sm"
+                   flat
+                   dense/>
             <q-btn :to="{ name: 'issues', params: { projectId: project.id }}"
                    label="Issues"
                    icon-right="navigate_next"
