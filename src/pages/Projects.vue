@@ -9,14 +9,14 @@
         <q-linear-progress v-if="projectsLoading" indeterminate/>
 
         <q-list bordered separator>
-          <q-item v-for="project in projects" :key="project.id">
+          <q-item v-for="project in sortedProjects" :key="project.id">
             <q-item-section>
               <div>
                 <q-btn type="a" :href="project.web_url" target="_blank" icon="launch" size="sm" flat dense/>
-                {{ project.name }}
+                {{ project.name }} ({{project.id}})
               </div>
             </q-item-section>
-<!--            <q-btn icon="push_pin" @click="toggleProjectPined(project.id)" :color="isProjectPined(project.id) ? 'primary' : 'black'" flat dense/>-->
+            <q-btn icon="push_pin" @click="toggleProjectPined(project.id)" :color="isProjectPined(project.id) ? 'primary' : 'black'" size="sm" flat dense/>
             <q-btn :to="{ name: 'issues', params: { projectId: project.id }}"
                    label="Issues"
                    icon-right="navigate_next"
@@ -44,9 +44,9 @@ export default {
       const sortedProjects = [...this.projects]
 
       return sortedProjects.sort((first, second) => {
-        if (this.isProjectPined(first.id) && !this.isProjectPined(second)) {
+        if (this.isProjectPined(first.id) && !this.isProjectPined(second.id)) {
           return -1
-        } else if (!this.isProjectPined(first.id) && this.isProjectPined(second)) {
+        } else if (!this.isProjectPined(first.id) && this.isProjectPined(second.id)) {
           return 1
         } else {
           return 0
@@ -59,9 +59,9 @@ export default {
     this.projectsLoading = true
     this.$gitlabApi.get('/projects?membership=true')
       .then(({ data }) => {
-        // if (localStorage.pinedProjectIds) {
-        //   this.pinedProjectIds = [...localStorage.pinedProjectIds].map(id => parseInt(id))
-        // }
+        if (localStorage.pinedProjectIds) {
+          this.pinedProjectIds = localStorage.pinedProjectIds.split(',').map(id => parseInt(id))
+        }
 
         this.projects = data
         this.projectsLoading = false
