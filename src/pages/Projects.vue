@@ -2,7 +2,11 @@
   <q-page class="flex">
     <ProjectList>
       <template #header="{ count }">
-        No. of Projects: {{ count }}
+        <q-item>
+          <q-item-section>
+            No. of Projects: {{ count }}
+          </q-item-section>
+        </q-item>
       </template>
     </ProjectList>
   </q-page>

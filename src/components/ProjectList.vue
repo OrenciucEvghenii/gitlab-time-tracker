@@ -2,14 +2,10 @@
   <div class="col-grow">
     <q-scroll-area style="height: 100%">
       <header>
-        <q-item>
-          <q-item-section>
-            <slot name="header" :count="sortedProjects.length"></slot>
-          </q-item-section>
-        </q-item>
+        <slot name="header" :count="sortedProjects.length"></slot>
       </header>
 
-      <q-linear-progress v-if="projectsLoading" indeterminate/>
+      <q-linear-progress v-if="projectsLoading" size="xs" indeterminate/>
 
       <q-list bordered separator>
         <ProjectListItem v-for="project in sortedProjects"
