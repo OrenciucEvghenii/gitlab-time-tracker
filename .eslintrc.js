@@ -66,6 +66,7 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/no-extraneous-dependencies': 'off',
     'prefer-promise-reject-errors': 'off',
+    'vue/no-mutating-props': 'off',
 
 
     // allow debugger during development only
