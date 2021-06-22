@@ -107,10 +107,9 @@ export default {
       const url = `${this.issueUrl}?state_event=${newState}`
 
       this.$gitlabApi.put(url)
-        .then(({ data }) => {
-          this.issue.state = data.state
-          this.loading = false
+        .then(() => {
           this.$emit('stateChanged')
+          this.loading = false
         })
         .catch(error => {
           console.error(error)
