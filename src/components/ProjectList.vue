@@ -27,6 +27,7 @@ import ProjectListItem from 'components/ProjectListItem'
 
 export default {
   name: 'ProjectList',
+  components: { ProjectListItem },
   props: {
     bordered: {
       type: Boolean
@@ -35,7 +36,6 @@ export default {
       type: Boolean
     }
   },
-  components: { ProjectListItem },
   data() {
     return {
       projects: [],
