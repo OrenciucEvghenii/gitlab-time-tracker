@@ -66,7 +66,7 @@ export default {
           this.pinedProjectIds = localStorage.pinedProjectIds.split(',').map(id => parseInt(id))
         }
 
-        if (this.pinnedOnly) { // FIXME: verry inefficient. especially if user has many projects
+        if (this.pinnedOnly) { // FIXME: very inefficient. especially if user has many projects
           data = data.filter(project => this.isProjectPinned(project.id))
         }
 

@@ -44,7 +44,7 @@ export default {
   },
   computed: {
     issuesUrl() {
-      // FIXME: verry ineffective method. Optimize!
+      // FIXME: very ineffective method. Optimize!
       // FIXME: make pagination dynamically [https://docs.gitlab.com/ee/api/README.html#pagination]
 
       let url = (this.projectId)

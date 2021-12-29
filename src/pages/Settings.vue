@@ -10,12 +10,6 @@
           Create Access Token
           <q-icon name="launch" size="xs" class="q-ml-sm"/>
         </q-btn>
-      <!--FIXME: temporary button. will be removed-->
-        <q-btn @click="gitlabApiUrl='https://gitlab.bitingbit.cloud/api/v4'"
-               class="q-ml-md"
-               no-caps>
-          Set BB GitLab API URL
-        </q-btn>
       </div>
     </div>
   </q-page>
@@ -26,8 +20,8 @@ export default {
   name: 'Settings',
   data() {
     return {
-      gitlabApiUrl: null,
-      gitlabAccessToken: null
+      gitlabApiUrl: '',
+      gitlabAccessToken: ''
     }
   },
   computed: {
@@ -41,10 +35,24 @@ export default {
   },
   methods: {
     saveSettings() {
-      localStorage.gitlabApiUrl = this.gitlabApiUrl
-      localStorage.gitlabAccessToken = this.gitlabAccessToken
-      this.$gitlabApi.defaults.baseURL = this.gitlabApiUrl
-      this.$gitlabApi.defaults.headers['PRIVATE-TOKEN'] = this.gitlabAccessToken
+      // TODO: Use https://vuelidate.js.org/ for validation
+      //  - null or undefined
+      //  - empty string
+      //  - string with only spaces
+      //  - url format
+      //  - etc.
+
+      if (this.gitlabApiUrl && this.gitlabAccessToken) {
+        localStorage.gitlabApiUrl = this.gitlabApiUrl
+        localStorage.gitlabAccessToken = this.gitlabAccessToken
+        this.$gitlabApi.defaults.baseURL = this.gitlabApiUrl
+        this.$gitlabApi.defaults.headers['PRIVATE-TOKEN'] = this.gitlabAccessToken
+
+        // TODO: Use quasar notification
+        alert('Saved')
+      } else {
+        alert('Set values first')
+      }
     }
   }
 }
