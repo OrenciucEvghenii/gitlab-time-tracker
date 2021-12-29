@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "GitLab Time Tracker",
   "productName": "GitLab Time Tracker",
-  "author": "Evghenii Orenciuc <evghenii.orenciuc@bitingbit.com>",
+  "author": "Evghenii Orenciuc <evghenii.orenciuc@gmail.com>",
   "private": true,
   "scripts": {
     "serve": "quasar dev",
