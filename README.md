@@ -33,7 +33,11 @@ and click 'refresh' button on extension card.
 https://developer.chrome.com/docs/extensions/
 
 ## Screenshots
+Home:\
 ![Home](screenshots/Home.png)
+Projects:\
 ![Projects](screenshots/Projects.png)
+Issues:\
 ![Issues](screenshots/Issues.png)
+Settings:\
 ![Settings](screenshots/Settings.png)
