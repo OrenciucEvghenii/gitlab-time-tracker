@@ -2,6 +2,9 @@
 
 GitLab Time Tracker
 
+## Current status
+In development
+
 ## Issues
 If you found a bug, or you have an idea how to improve this tool, create an issue in GitLab.
 
@@ -28,3 +31,9 @@ and click 'refresh' button on extension card.
 
 ## Dev Docs
 https://developer.chrome.com/docs/extensions/
+
+## Screenshots
+![Home](screenshots/Home.png)
+![Projects](screenshots/Projects.png)
+![Issues](screenshots/Issues.png)
+![Settings](screenshots/Settings.png)
