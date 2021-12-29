@@ -1,6 +1,6 @@
 # GitLab Time Tracker (gitlab-time-tracker)
 
-GitLab Time Tracker
+GitLab Time Tracker (Chrome Extension)
 
 ## Current status
 In development
